@@ -340,5 +340,5 @@ ID : [a-zA-Z]+;
 NEXTLINE : [\n\r];
 INT	:	'-'? '+'? [0-9]+ ;
 REAL	:	'-'? '+'? [0-9]+'.'[0-9]* ;
-STRING	:	[a-zA-Z.*\t]+;
+STRING	:	[a-zA-Z.*]+;
 WS	:	[ \t\r\n]+ -> skip ;
