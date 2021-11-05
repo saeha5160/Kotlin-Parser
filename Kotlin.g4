@@ -23,15 +23,6 @@ imports
 declaration
 	: functionObject  NEXTLINE*
 	| classObject  NEXTLINE*
-
-	;
-
-multiComment
-	: '/*' (multiComment | .)* '*/'
-	;
-
-Comment
-	: '//' .* NEXTLINE*
 	;
 
 ///////////////////Function 정의/////////////////////
@@ -338,3 +329,5 @@ INT	:	'-'? '+'? [0-9]+ ;
 REAL	:	'-'? '+'? [0-9]+'.'[0-9]+ ;
 STRING : [~"]+;
 WS	:	[ \t]+ -> skip ;
+LINECOMMENT: '//' ~[\r\n]* -> skip;
+COMMENTS: '/*' .*? '*/' -> skip;

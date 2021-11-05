@@ -22,27 +22,27 @@ public:
     T__44 = 45, T__45 = 46, T__46 = 47, T__47 = 48, T__48 = 49, T__49 = 50, 
     T__50 = 51, T__51 = 52, T__52 = 53, T__53 = 54, T__54 = 55, T__55 = 56, 
     T__56 = 57, T__57 = 58, T__58 = 59, T__59 = 60, T__60 = 61, T__61 = 62, 
-    T__62 = 63, T__63 = 64, T__64 = 65, T__65 = 66, T__66 = 67, Comment = 68, 
-    ID = 69, NEXTLINE = 70, INT = 71, REAL = 72, STRING = 73, WS = 74
+    T__62 = 63, T__63 = 64, T__64 = 65, ID = 66, NEXTLINE = 67, INT = 68, 
+    REAL = 69, STRING = 70, WS = 71, LINECOMMENT = 72, COMMENTS = 73
   };
 
   enum {
     RuleKotlin = 0, RulePackage = 1, RuleImportList = 2, RuleImports = 3, 
-    RuleDeclaration = 4, RuleMultiComment = 5, RuleFunctionObject = 6, RuleFunctinParameters = 7, 
-    RuleFunctinParameter = 8, RuleFunctionBody = 9, RuleBlockFunction = 10, 
-    RuleSimpleFunction = 11, RuleFuncReturn = 12, RuleClassObject = 13, 
-    RuleClassParameters = 14, RuleClassParameter = 15, RuleInheritanceClass = 16, 
-    RuleClassBody = 17, RuleCodes = 18, RuleCode = 19, RuleVariablesDeclare = 20, 
-    RuleAssn = 21, RuleSubstitutionOperator = 22, RuleExpression = 23, RuleIfExpr = 24, 
-    RuleWhenExpr = 25, RuleWhenbody = 26, RuleLiteralConstant = 27, RuleExpr = 28, 
-    RuleOrOper = 29, RuleAndOper = 30, RuleCompare = 31, RuleCompareOperator = 32, 
-    RuleInfix = 33, RuleListFunc = 34, RuleFilterBody = 35, RuleMapBody = 36, 
-    RuleTypeCheck = 37, RuleTypeCheckOperator = 38, RuleInCheck = 39, RuleInCheckOperator = 40, 
-    RuleList = 41, RuleCalcul = 42, RulePrefix = 43, RulePrefixOperator = 44, 
-    RulePostfix = 45, RulePostfixOperator = 46, RuleLoop = 47, RuleForOper = 48, 
-    RuleWhileOper = 49, RuleBody = 50, RuleUseFunc = 51, RuleUserFunc = 52, 
-    RulePrint = 53, RulePrintText = 54, RuleType = 55, RuleNullableType = 56, 
-    RuleUserType = 57, RuleObType = 58, RuleOriginalType = 59
+    RuleDeclaration = 4, RuleFunctionObject = 5, RuleFunctinParameters = 6, 
+    RuleFunctinParameter = 7, RuleFunctionBody = 8, RuleBlockFunction = 9, 
+    RuleSimpleFunction = 10, RuleFuncReturn = 11, RuleClassObject = 12, 
+    RuleClassParameters = 13, RuleClassParameter = 14, RuleInheritanceClass = 15, 
+    RuleClassBody = 16, RuleCodes = 17, RuleCode = 18, RuleVariablesDeclare = 19, 
+    RuleAssn = 20, RuleSubstitutionOperator = 21, RuleExpression = 22, RuleIfExpr = 23, 
+    RuleWhenExpr = 24, RuleWhenbody = 25, RuleLiteralConstant = 26, RuleExpr = 27, 
+    RuleOrOper = 28, RuleAndOper = 29, RuleCompare = 30, RuleCompareOperator = 31, 
+    RuleInfix = 32, RuleListFunc = 33, RuleFilterBody = 34, RuleMapBody = 35, 
+    RuleTypeCheck = 36, RuleTypeCheckOperator = 37, RuleInCheck = 38, RuleInCheckOperator = 39, 
+    RuleList = 40, RuleCalcul = 41, RulePrefix = 42, RulePrefixOperator = 43, 
+    RulePostfix = 44, RulePostfixOperator = 45, RuleLoop = 46, RuleForOper = 47, 
+    RuleWhileOper = 48, RuleBody = 49, RuleUseFunc = 50, RuleUserFunc = 51, 
+    RulePrint = 52, RulePrintText = 53, RuleType = 54, RuleNullableType = 55, 
+    RuleUserType = 56, RuleObType = 57, RuleOriginalType = 58
   };
 
   explicit KotlinParser(antlr4::TokenStream *input);
@@ -60,7 +60,6 @@ public:
   class ImportListContext;
   class ImportsContext;
   class DeclarationContext;
-  class MultiCommentContext;
   class FunctionObjectContext;
   class FunctinParametersContext;
   class FunctinParameterContext;
@@ -194,20 +193,6 @@ public:
   };
 
   DeclarationContext* declaration();
-
-  class  MultiCommentContext : public antlr4::ParserRuleContext {
-  public:
-    MultiCommentContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    std::vector<MultiCommentContext *> multiComment();
-    MultiCommentContext* multiComment(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  MultiCommentContext* multiComment();
 
   class  FunctionObjectContext : public antlr4::ParserRuleContext {
   public:

@@ -31,9 +31,6 @@ public:
   virtual void enterDeclaration(KotlinParser::DeclarationContext * /*ctx*/) override { }
   virtual void exitDeclaration(KotlinParser::DeclarationContext * /*ctx*/) override { }
 
-  virtual void enterMultiComment(KotlinParser::MultiCommentContext * /*ctx*/) override { }
-  virtual void exitMultiComment(KotlinParser::MultiCommentContext * /*ctx*/) override { }
-
   virtual void enterFunctionObject(KotlinParser::FunctionObjectContext * /*ctx*/) override { }
   virtual void exitFunctionObject(KotlinParser::FunctionObjectContext * /*ctx*/) override { }
 

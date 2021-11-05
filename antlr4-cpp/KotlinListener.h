@@ -29,9 +29,6 @@ public:
   virtual void enterDeclaration(KotlinParser::DeclarationContext *ctx) = 0;
   virtual void exitDeclaration(KotlinParser::DeclarationContext *ctx) = 0;
 
-  virtual void enterMultiComment(KotlinParser::MultiCommentContext *ctx) = 0;
-  virtual void exitMultiComment(KotlinParser::MultiCommentContext *ctx) = 0;
-
   virtual void enterFunctionObject(KotlinParser::FunctionObjectContext *ctx) = 0;
   virtual void exitFunctionObject(KotlinParser::FunctionObjectContext *ctx) = 0;
 
