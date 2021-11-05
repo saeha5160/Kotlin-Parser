@@ -108,21 +108,22 @@ substitutionOperator
 ///////////////////////////////////////////////////////////////////////
 
 expression
-	: if
-	| when
+	: ifExpr
+	| whenExpr
 	| literalConstant
 	| ID
+	| userFunc
 	;
 
 
 ///////////////////////조건//////////////////////////////////////////
 
-if
-	: 'if' '(' expr ')' ifbody (else)?
+ifExpr
+	: 'if' '(' expr ')' ifbody (elseExpr)?
 	;
 
-else
-	: 'else' if
+elseExpr
+	: 'else' ifExpr
 	| 'else' ifbody
 	;
 
@@ -131,7 +132,7 @@ ifbody
 	| code
 	;
 
-when
+whenExpr
 	: 'when' '(' expr ')' whenbody
 	;
 
@@ -155,19 +156,19 @@ literalConstant
 ///////////////expr(수식)////////////////////////////////////////////////
 
 expr
-	: or
+	: orOper
 	;
 
-or
-	: and ('||' and)*
+orOper
+	: andOper ('||' andOper)*
 	;
 
-and
+andOper
 	: compare ('&&' compare)*
 	;
 
 compare
-	: (typeCheck|inCheck|calcul) (compareOperator (typeCheck|inCheck|calcul))*
+	: infix (compareOperator infix)*
 	;
 
 compareOperator
@@ -179,8 +180,27 @@ compareOperator
 	| '>='
 	;
 
+infix
+	: list ('.' listFunc)* (inCheck | typeCheck)
+	;
+
+listFunc 
+	: '.filter' '{' filterBody '}'
+    | '.sortedBy' '{' ID '}'
+    | '.map' mapBody
+    | '.forEach' '{' codes '}'
+    ;
+
+filterBody
+   : 'it' '.' 'startWith' '(' expr ')'
+   ;
+
+mapBody
+   : 'it' '.' 'uppercase' '(' ')'
+   ;
+
 typeCheck
-	: expr typeCheckOperator expr
+	: typeCheckOperator type
 	;
 
 typeCheckOperator
@@ -188,44 +208,15 @@ typeCheckOperator
 	;
 
 inCheck
-	: expr? inCheckOperator? range rangeFunc?
+	: inCheckOperator calcul
 	;
 
 inCheckOperator
 	: ('!')? 'in'
 	;
 
-range
-	: list
-	| set
-	| ID
-	;
-
 list
-	: calcul '..' calcul
-	| 'listOf' '(' expr (','expr)* ')' 
-	;
-
-set
-	: 'setOf' '(' expr (','expr)* ')'
-	;
-
-rangeFunc
-	: '.size'
-	| '.indices'
-	| '.lastIndex'
-	| '.filter' '{' filterBody '}'
-	| '.sortedBy' '{' ID '}'
-	| '.map' mapBody
-	| '.forEach' '{' codes '}'
-	;
-
-filterBody
-	: 'it' '.' 'startWith' '(' expr ')'
-	;
-
-mapBody
-	: 'it' '.' 'uppercase' '(' ')'
+	: calcul ('..' calcul)*
 	;
 
 calcul
@@ -248,26 +239,24 @@ postfix
 
 postfixOperator
 	: prefixOperator
-	| '.size'
-	| '.indices'
-	| '.lastIndex'
+	| '.' DOTFUNC
 	;
 
 
 ///////////////////////루프//////////////////////////////////////////////
 
 loop
-	: for
-	| while
+	: forOper
+	| whileOper
 	;
 
-for
+forOper
 	: 'for (' inCheck ')' loopBody
 	| 'for (' inCheck 'step' expr ')' loopBody
 	| 'for (' inCheck 'downTo' expr 'step' expr ')' loopBody
 	;
 
-while
+whileOper
 	: 'while (' expr ')' loopBody
 	;
 
@@ -313,7 +302,7 @@ nullableType
 	;
 
 userType
-	: ID obType? 
+	: originalType obType? 
 	;
 
 obType
@@ -325,6 +314,7 @@ originalType
 	| 'Unit'
 	| 'Real'
 	| 'String'
+	| 'Array'
 	;
 
 
@@ -334,6 +324,7 @@ IMPORTNAME : [a-zA-Z.]+;
 FUNCTIONID : [a-zA-Z]+;
 CLASSID : [a-zA-Z]+;
 ID : [a-zA-Z]+;
+DOTFUNC : [a-zA-Z]+;
 NEXTLINE : [\n\r];
 NOT : '!';
 INT	:	'-'? '+'? [0-9]+ ;
