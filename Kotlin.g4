@@ -3,25 +3,39 @@ grammar Kotlin;
 
 // parser rules
 kotlin 
-	: package+ imports* declaration* EOF
+	: package? importList? declaration+ EOF
 	;
 
 package
-	: 'package' PACKAGENAME NEXTLINE
+	: 'package' ID('.' ID)*
+	;
+
+
+	
+importList
+	: imports*
 	;
 
 imports
-	: 'import' IMPORTNAME NEXTLINE
+	: 'import' ID('.' (ID|'*'))* NEXTLINE?
 	;
 
 declaration
-	: functionObject
-	| classObject
+	: functionObject 
+	| classObject 
+	;
+
+multiComment
+	: '/*' (multiComment | .)* '*/'
+	;
+
+Comment
+	: '//' .* NEXTLINE
 	;
 
 ///////////////////Function 정의/////////////////////
 functionObject
-	: 'fun' FUNCTIONID functinParameters (':' type)? functionBody
+	: 'fun' ID functinParameters (':' type)? functionBody
 	;
 
 functinParameters
@@ -45,12 +59,16 @@ simpleFunction
 	: '=' code         
 	;
 
+funcReturn
+	: 'return' expr
+	;
+
 //////////////////////////////////////////////////////
 
 
 //////////////////////class 정의//////////////////////
 classObject
-	: 'class' CLASSID classParameters (':' inheritanceClass )? classBody
+	: 'class' ID classParameters (':' inheritanceClass )? classBody
 	;
 
 classParameters
@@ -62,7 +80,7 @@ classParameter
 	;
 
 inheritanceClass   ///////상속받는경우
-	: CLASSID '()'
+	: ID '()'
 	;
 
 classBody
@@ -77,24 +95,24 @@ codes
 	;
 
 code
-	: declaration
+	: loop
 	| variablesDeclare
 	| expression
 	| expr
-	| loop
+	| declaration
 	| useFunc
 	
 	;
 
 /////////////////////////변수 선언 및 대입//////////////////////////////
 variablesDeclare
-	: ID assn
-	| ('val' | 'var') ID (':'type)? assn?
+	: ('val' | 'var') ID (':'type)? assn?
+	| ID assn
 	;
 
 assn
 	: substitutionOperator expr
-	| '=' CLASSID '(' (expr (',' expr)*)? ')'
+	| '=' ID '(' (expr (',' expr)*)? ')'
 	;
 
 substitutionOperator
@@ -113,19 +131,16 @@ expression
 	| literalConstant
 	| ID
 	| userFunc
+	| funcReturn?
 	;
 
 
 ///////////////////////조건//////////////////////////////////////////
 
 ifExpr
-	: 'if' '(' expr ')' ifbody (elseExpr)?
+	: 'if' '(' expr ')' (ifbody | ifbody? 'else' ifbody)
 	;
 
-elseExpr
-	: 'else' ifExpr
-	| 'else' ifbody
-	;
 
 ifbody
 	: '{' codes '}'
@@ -220,8 +235,9 @@ list
 	;
 
 calcul
-	: prefix ('*'|'/') prefix
-	| prefix ('+'|'-') prefix
+	: prefix (('*'|'/') prefix)*
+	| prefix (('+'|'-') prefix)*
+	| '(' expr ')'  ((('*'|'/') prefix)|(('+'|'-') prefix))*
 	;
 
 prefix
@@ -239,7 +255,7 @@ postfix
 
 postfixOperator
 	: prefixOperator
-	| '.' DOTFUNC
+	| '.' ID
 	;
 
 
@@ -276,7 +292,7 @@ useFunc
 	;
 
 userFunc
-	: FUNCTIONID'(' (expr (',' expr)*)? ')'
+	: ID'(' (expr (',' expr)*)? ')'
 	;
 
 print
@@ -315,18 +331,14 @@ originalType
 	| 'Real'
 	| 'String'
 	| 'Array'
+	| 'Double'
 	;
 
 
 // lexer rules
-PACKAGENAME : [a-zA-Z.]+;
-IMPORTNAME : [a-zA-Z.]+;
-FUNCTIONID : [a-zA-Z]+;
-CLASSID : [a-zA-Z]+;
 ID : [a-zA-Z]+;
-DOTFUNC : [a-zA-Z]+;
 NEXTLINE : [\n\r];
-NOT : '!';
 INT	:	'-'? '+'? [0-9]+ ;
 REAL	:	'-'? '+'? [0-9]+'.'[0-9]* ;
-STRING	:	[a-zA-Z]+ ;
+STRING	:	[a-zA-Z.*\t]+;
+WS	:	[ \t\r\n]+ -> skip ;

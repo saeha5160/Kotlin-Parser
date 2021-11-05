@@ -22,11 +22,17 @@ public:
   virtual void enterPackage(KotlinParser::PackageContext * /*ctx*/) override { }
   virtual void exitPackage(KotlinParser::PackageContext * /*ctx*/) override { }
 
+  virtual void enterImportList(KotlinParser::ImportListContext * /*ctx*/) override { }
+  virtual void exitImportList(KotlinParser::ImportListContext * /*ctx*/) override { }
+
   virtual void enterImports(KotlinParser::ImportsContext * /*ctx*/) override { }
   virtual void exitImports(KotlinParser::ImportsContext * /*ctx*/) override { }
 
   virtual void enterDeclaration(KotlinParser::DeclarationContext * /*ctx*/) override { }
   virtual void exitDeclaration(KotlinParser::DeclarationContext * /*ctx*/) override { }
+
+  virtual void enterMultiComment(KotlinParser::MultiCommentContext * /*ctx*/) override { }
+  virtual void exitMultiComment(KotlinParser::MultiCommentContext * /*ctx*/) override { }
 
   virtual void enterFunctionObject(KotlinParser::FunctionObjectContext * /*ctx*/) override { }
   virtual void exitFunctionObject(KotlinParser::FunctionObjectContext * /*ctx*/) override { }
@@ -45,6 +51,9 @@ public:
 
   virtual void enterSimpleFunction(KotlinParser::SimpleFunctionContext * /*ctx*/) override { }
   virtual void exitSimpleFunction(KotlinParser::SimpleFunctionContext * /*ctx*/) override { }
+
+  virtual void enterFuncReturn(KotlinParser::FuncReturnContext * /*ctx*/) override { }
+  virtual void exitFuncReturn(KotlinParser::FuncReturnContext * /*ctx*/) override { }
 
   virtual void enterClassObject(KotlinParser::ClassObjectContext * /*ctx*/) override { }
   virtual void exitClassObject(KotlinParser::ClassObjectContext * /*ctx*/) override { }
@@ -81,9 +90,6 @@ public:
 
   virtual void enterIfExpr(KotlinParser::IfExprContext * /*ctx*/) override { }
   virtual void exitIfExpr(KotlinParser::IfExprContext * /*ctx*/) override { }
-
-  virtual void enterElseExpr(KotlinParser::ElseExprContext * /*ctx*/) override { }
-  virtual void exitElseExpr(KotlinParser::ElseExprContext * /*ctx*/) override { }
 
   virtual void enterIfbody(KotlinParser::IfbodyContext * /*ctx*/) override { }
   virtual void exitIfbody(KotlinParser::IfbodyContext * /*ctx*/) override { }

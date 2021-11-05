@@ -20,11 +20,17 @@ public:
   virtual void enterPackage(KotlinParser::PackageContext *ctx) = 0;
   virtual void exitPackage(KotlinParser::PackageContext *ctx) = 0;
 
+  virtual void enterImportList(KotlinParser::ImportListContext *ctx) = 0;
+  virtual void exitImportList(KotlinParser::ImportListContext *ctx) = 0;
+
   virtual void enterImports(KotlinParser::ImportsContext *ctx) = 0;
   virtual void exitImports(KotlinParser::ImportsContext *ctx) = 0;
 
   virtual void enterDeclaration(KotlinParser::DeclarationContext *ctx) = 0;
   virtual void exitDeclaration(KotlinParser::DeclarationContext *ctx) = 0;
+
+  virtual void enterMultiComment(KotlinParser::MultiCommentContext *ctx) = 0;
+  virtual void exitMultiComment(KotlinParser::MultiCommentContext *ctx) = 0;
 
   virtual void enterFunctionObject(KotlinParser::FunctionObjectContext *ctx) = 0;
   virtual void exitFunctionObject(KotlinParser::FunctionObjectContext *ctx) = 0;
@@ -43,6 +49,9 @@ public:
 
   virtual void enterSimpleFunction(KotlinParser::SimpleFunctionContext *ctx) = 0;
   virtual void exitSimpleFunction(KotlinParser::SimpleFunctionContext *ctx) = 0;
+
+  virtual void enterFuncReturn(KotlinParser::FuncReturnContext *ctx) = 0;
+  virtual void exitFuncReturn(KotlinParser::FuncReturnContext *ctx) = 0;
 
   virtual void enterClassObject(KotlinParser::ClassObjectContext *ctx) = 0;
   virtual void exitClassObject(KotlinParser::ClassObjectContext *ctx) = 0;
@@ -79,9 +88,6 @@ public:
 
   virtual void enterIfExpr(KotlinParser::IfExprContext *ctx) = 0;
   virtual void exitIfExpr(KotlinParser::IfExprContext *ctx) = 0;
-
-  virtual void enterElseExpr(KotlinParser::ElseExprContext *ctx) = 0;
-  virtual void exitElseExpr(KotlinParser::ElseExprContext *ctx) = 0;
 
   virtual void enterIfbody(KotlinParser::IfbodyContext *ctx) = 0;
   virtual void exitIfbody(KotlinParser::IfbodyContext *ctx) = 0;
