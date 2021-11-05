@@ -218,7 +218,7 @@ typeCheckOperator
 	;
 
 inCheck
-	: inCheckOperator calcul
+	: inCheckOperator expr
 	;
 
 inCheckOperator
@@ -250,7 +250,7 @@ postfix
 
 postfixOperator
 	: prefixOperator
-	| '.' ID
+	| '.' ID '()'?
 	;
 
 
@@ -262,9 +262,9 @@ loop
 	;
 
 forOper
-	: 'for (' inCheck ')' body
-	| 'for (' inCheck 'step' expr ')' body
-	| 'for (' inCheck 'downTo' expr 'step' expr ')' body
+	: 'for (' expr ')' body
+	| 'for (' expr 'step' expr ')' body
+	| 'for (' expr 'downTo' expr 'step' expr ')' body
 	;
 
 whileOper
@@ -334,6 +334,6 @@ originalType
 ID : [a-zA-Z0-9]+;
 NEXTLINE : [\n\r];
 INT	:	'-'? '+'? [0-9]+ ;
-REAL	:	'-'? '+'? [0-9]+'.'[0-9]* ;
+REAL	:	'-'? '+'? [0-9]+'.'[0-9]+ ;
 
 WS	:	[ \t]+ -> skip ;
