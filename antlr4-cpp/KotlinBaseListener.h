@@ -91,9 +91,6 @@ public:
   virtual void enterIfExpr(KotlinParser::IfExprContext * /*ctx*/) override { }
   virtual void exitIfExpr(KotlinParser::IfExprContext * /*ctx*/) override { }
 
-  virtual void enterIfbody(KotlinParser::IfbodyContext * /*ctx*/) override { }
-  virtual void exitIfbody(KotlinParser::IfbodyContext * /*ctx*/) override { }
-
   virtual void enterWhenExpr(KotlinParser::WhenExprContext * /*ctx*/) override { }
   virtual void exitWhenExpr(KotlinParser::WhenExprContext * /*ctx*/) override { }
 
@@ -169,8 +166,8 @@ public:
   virtual void enterWhileOper(KotlinParser::WhileOperContext * /*ctx*/) override { }
   virtual void exitWhileOper(KotlinParser::WhileOperContext * /*ctx*/) override { }
 
-  virtual void enterLoopBody(KotlinParser::LoopBodyContext * /*ctx*/) override { }
-  virtual void exitLoopBody(KotlinParser::LoopBodyContext * /*ctx*/) override { }
+  virtual void enterBody(KotlinParser::BodyContext * /*ctx*/) override { }
+  virtual void exitBody(KotlinParser::BodyContext * /*ctx*/) override { }
 
   virtual void enterUseFunc(KotlinParser::UseFuncContext * /*ctx*/) override { }
   virtual void exitUseFunc(KotlinParser::UseFuncContext * /*ctx*/) override { }

@@ -7,22 +7,22 @@ kotlin
 	;
 
 package
-	: 'package' ID('.' ID)*
+	: 'package' ID('.' ID)* NEXTLINE*
 	;
 
 
 	
 importList
-	: imports*
+	: imports* 
 	;
 
 imports
-	: 'import' ID('.' (ID|'*'))* NEXTLINE?
+	: 'import' ID('.' (ID|'*'))* NEXTLINE*
 	;
 
 declaration
-	: functionObject 
-	| classObject 
+	: functionObject  NEXTLINE*
+	| classObject  NEXTLINE*
 	;
 
 multiComment
@@ -30,12 +30,12 @@ multiComment
 	;
 
 Comment
-	: '//' .* NEXTLINE
+	: '//' .* NEXTLINE*
 	;
 
 ///////////////////Function 정의/////////////////////
 functionObject
-	: 'fun' ID functinParameters (':' type)? functionBody
+	: 'fun' ID functinParameters (':' type)? functionBody NEXTLINE*
 	;
 
 functinParameters
@@ -47,7 +47,7 @@ functinParameter
 	;
 
 functionBody
-	: blockFunction
+	: blockFunction 
 	| simpleFunction
 	;
 
@@ -60,7 +60,7 @@ simpleFunction
 	;
 
 funcReturn
-	: 'return' expr
+	: 'return' expr NEXTLINE*
 	;
 
 //////////////////////////////////////////////////////
@@ -68,7 +68,7 @@ funcReturn
 
 //////////////////////class 정의//////////////////////
 classObject
-	: 'class' ID classParameters (':' inheritanceClass )? classBody
+	: 'class' ID classParameters (':' inheritanceClass )? classBody NEXTLINE*
 	;
 
 classParameters
@@ -91,7 +91,7 @@ classBody
 
 
 codes
-	: (code (NEXTLINE code)*)?
+	: (code (NEXTLINE code)*)? NEXTLINE?
 	;
 
 code
@@ -101,7 +101,6 @@ code
 	| expr
 	| declaration
 	| useFunc
-	
 	;
 
 /////////////////////////변수 선언 및 대입//////////////////////////////
@@ -138,14 +137,9 @@ expression
 ///////////////////////조건//////////////////////////////////////////
 
 ifExpr
-	: 'if' '(' expr ')' (ifbody | ifbody? 'else' ifbody)
+	: 'if' '(' expr ')' (body | body? 'else' body)
 	;
 
-
-ifbody
-	: '{' codes '}'
-	| code
-	;
 
 whenExpr
 	: 'when' '(' expr ')' whenbody
@@ -161,7 +155,7 @@ whenbody
 literalConstant
 	: INT
 	| REAL
-	| '"' STRING '"'
+	| '"' .* '"'
 	| 'null'
 	;
 	
@@ -196,7 +190,7 @@ compareOperator
 	;
 
 infix
-	: list ('.' listFunc)* (inCheck | typeCheck)
+	: list (('.' listFunc)|inCheck | typeCheck)*
 	;
 
 listFunc 
@@ -204,6 +198,7 @@ listFunc
     | '.sortedBy' '{' ID '}'
     | '.map' mapBody
     | '.forEach' '{' codes '}'
+
     ;
 
 filterBody
@@ -219,7 +214,7 @@ typeCheck
 	;
 
 typeCheckOperator
-	: ('!')? 'is'
+	: '!'? 'is'
 	;
 
 inCheck
@@ -267,16 +262,16 @@ loop
 	;
 
 forOper
-	: 'for (' inCheck ')' loopBody
-	| 'for (' inCheck 'step' expr ')' loopBody
-	| 'for (' inCheck 'downTo' expr 'step' expr ')' loopBody
+	: 'for (' inCheck ')' body
+	| 'for (' inCheck 'step' expr ')' body
+	| 'for (' inCheck 'downTo' expr 'step' expr ')' body
 	;
 
 whileOper
-	: 'while (' expr ')' loopBody
+	: 'while (' expr ')' body
 	;
 
-loopBody
+body
 	: '{' codes '}'
 	| code
 	;
@@ -301,8 +296,7 @@ print
 	;
 
 printText
-	: literalConstant
-	| ID
+	: expr
 	;
 
 //////////////////////////////////////////////////////////////////////
@@ -332,13 +326,14 @@ originalType
 	| 'String'
 	| 'Array'
 	| 'Double'
+	| 'Any'
 	;
 
 
 // lexer rules
-ID : [a-zA-Z]+;
+ID : [a-zA-Z0-9]+;
 NEXTLINE : [\n\r];
 INT	:	'-'? '+'? [0-9]+ ;
 REAL	:	'-'? '+'? [0-9]+'.'[0-9]* ;
-STRING	:	[a-zA-Z.*]+;
-WS	:	[ \t\r\n]+ -> skip ;
+
+WS	:	[ \t]+ -> skip ;

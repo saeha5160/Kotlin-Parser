@@ -1,11 +1,13 @@
 package my.demo
 import kotlin.text.*
 
-fun maxOf(a : Int, b : Int) : Int { 
-   if (a > b) { 
-      return a 
-   } else { 
-      return b 
-   } 
+fun main(args : Array<String>) {
+   fun StringLen(obj:Any) : Int ? {
+      if (obj is String && obj.length > 0 && (obj != null || 1 < 0))
+         return obj.length
+     
+   }
+   println(aras)
 }
+
 

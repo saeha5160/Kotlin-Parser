@@ -146,23 +146,19 @@ public:
    virtual void exitExpression(KotlinParser::ExpressionContext *ctx) {
       cout << "\texitExpression: \n";
    }
+   
    virtual void enterIfExpr(KotlinParser::IfExprContext *ctx) {
       cout << "\tenterIfExp: \n";
    }
    virtual void exitIfExpr(KotlinParser::IfExprContext *ctx) {
       cout << "\texitIfExp: \n";
    }
-   virtual void enterElseExpr(KotlinParser::ElseExprContext *ctx) {
-      cout << "\tenterElse: \n";
+   
+   virtual void enterbody(KotlinParser::BodyContext *ctx) {
+      cout << "\tenterbody: \n";
    }
-   virtual void exitElseExpr(KotlinParser::ElseExprContext *ctx) {
-      cout << "\texitElse: \n";
-   }
-   virtual void enterIfbody(KotlinParser::IfbodyContext *ctx) {
-      cout << "\tenterIfbody: \n";
-   }
-   virtual void exitIfbody(KotlinParser::IfbodyContext *ctx) {
-      cout << "\texitIfbody: \n";
+   virtual void exitbody(KotlinParser::BodyContext *ctx) {
+      cout << "\texitbody: \n";
    }
    virtual void enterWhenExpr(KotlinParser::WhenExprContext *ctx) {
       cout << "\tenterWhen: \n";
@@ -335,12 +331,7 @@ public:
       cout << "\texitWhileOper: \n";
    }
 
-   virtual void enterLoopBody(KotlinParser::LoopBodyContext *ctx) {
-      cout << "\tenterLoopBody: \n";
-   }
-   virtual void exitLoopBody(KotlinParser::LoopBodyContext *ctx) {
-      cout << "\texitLoopBody: \n";
-   }
+   
 
    virtual void enterUseFunc(KotlinParser::UseFuncContext *ctx) {
       cout << "\tenterUseFunc: \n";

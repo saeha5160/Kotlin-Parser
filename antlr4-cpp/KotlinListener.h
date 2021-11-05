@@ -89,9 +89,6 @@ public:
   virtual void enterIfExpr(KotlinParser::IfExprContext *ctx) = 0;
   virtual void exitIfExpr(KotlinParser::IfExprContext *ctx) = 0;
 
-  virtual void enterIfbody(KotlinParser::IfbodyContext *ctx) = 0;
-  virtual void exitIfbody(KotlinParser::IfbodyContext *ctx) = 0;
-
   virtual void enterWhenExpr(KotlinParser::WhenExprContext *ctx) = 0;
   virtual void exitWhenExpr(KotlinParser::WhenExprContext *ctx) = 0;
 
@@ -167,8 +164,8 @@ public:
   virtual void enterWhileOper(KotlinParser::WhileOperContext *ctx) = 0;
   virtual void exitWhileOper(KotlinParser::WhileOperContext *ctx) = 0;
 
-  virtual void enterLoopBody(KotlinParser::LoopBodyContext *ctx) = 0;
-  virtual void exitLoopBody(KotlinParser::LoopBodyContext *ctx) = 0;
+  virtual void enterBody(KotlinParser::BodyContext *ctx) = 0;
+  virtual void exitBody(KotlinParser::BodyContext *ctx) = 0;
 
   virtual void enterUseFunc(KotlinParser::UseFuncContext *ctx) = 0;
   virtual void exitUseFunc(KotlinParser::UseFuncContext *ctx) = 0;
