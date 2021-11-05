@@ -23,7 +23,7 @@ public:
     T__50 = 51, T__51 = 52, T__52 = 53, T__53 = 54, T__54 = 55, T__55 = 56, 
     T__56 = 57, T__57 = 58, T__58 = 59, T__59 = 60, T__60 = 61, T__61 = 62, 
     T__62 = 63, T__63 = 64, T__64 = 65, T__65 = 66, T__66 = 67, Comment = 68, 
-    ID = 69, NEXTLINE = 70, INT = 71, REAL = 72, WS = 73
+    ID = 69, NEXTLINE = 70, INT = 71, REAL = 72, STRING = 73, WS = 74
   };
 
   explicit KotlinLexer(antlr4::CharStream *input);

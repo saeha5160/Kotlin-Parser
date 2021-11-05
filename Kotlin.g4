@@ -23,6 +23,7 @@ imports
 declaration
 	: functionObject  NEXTLINE*
 	| classObject  NEXTLINE*
+
 	;
 
 multiComment
@@ -137,7 +138,7 @@ expression
 ///////////////////////조건//////////////////////////////////////////
 
 ifExpr
-	: 'if' '(' expr ')' (body | body? 'else' body)
+	: 'if' '(' expr ')' body  NEXTLINE* ('else' body)?
 	;
 
 
@@ -155,7 +156,7 @@ whenbody
 literalConstant
 	: INT
 	| REAL
-	| '"' .* '"'
+	| '"' ~('"')+ '"'
 	| 'null'
 	;
 	
@@ -291,8 +292,8 @@ userFunc
 	;
 
 print
-	: 'print''('printText')'
-	| 'println''('printText')'
+	: 'print''('printText?')'
+	| 'println''('printText?')'
 	;
 
 printText
@@ -335,5 +336,5 @@ ID : [a-zA-Z0-9]+;
 NEXTLINE : [\n\r];
 INT	:	'-'? '+'? [0-9]+ ;
 REAL	:	'-'? '+'? [0-9]+'.'[0-9]+ ;
-
+STRING : [~"]+;
 WS	:	[ \t]+ -> skip ;

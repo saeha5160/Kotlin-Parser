@@ -52,11 +52,11 @@ public:
    virtual void exitFunctinParameter(KotlinParser::FunctinParameterContext *ctx) {
       cout << "\texitFunctinParameter: \n";
    }
-   virtual void enterFunctionBody(KotlinParser::FunctionBodyContext *ctx) {
-      cout << "\tenterFunctionBody: \n";
+   virtual void enterBody(KotlinParser::BodyContext *ctx) {
+      cout << "\tenterBody: \n";
    }
-   virtual void exitFunctionBody(KotlinParser::FunctionBodyContext *ctx) {
-      cout << "\texitFunctionBody: \n";
+   virtual void exitBody(KotlinParser::BodyContext *ctx) {
+      cout << "\texitBody: \n";
    }
    virtual void enterBlockFunction(KotlinParser::BlockFunctionContext *ctx) {
       cout << "\tenterBlockFunction: \n";
